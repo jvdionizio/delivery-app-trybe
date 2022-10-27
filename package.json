@@ -11,7 +11,7 @@
     "start": "./scripts/prepare-for-test.sh",
     "stop": "(pm2 stop all && pm2 delete all) | grep 'PM2'",
     "dev": "./scripts/prepare-for-dev.sh",
-    "dev:prestart": "./scripts/prestart-dev.sh",
+    "dev:prestart": "bash ./scripts/prestart-dev.sh",
     "db:reset": "./scripts/reset-db-dev.sh",
     "db:reset:debug": "./scripts/reset-db-dev-debug.sh",
     "pretest": "npm start",
@@ -53,5 +53,8 @@
       "__TESTDESC__": true,
       "__TESTFILE__": true
     }
+  },
+  "dependencies": {
+    "express-async-errors": "^3.1.1"
   }
 }
