@@ -7,7 +7,7 @@ import Provider from './context/Provider';
 ReactDOM.render(
   <Provider>
     <React.StrictMode>
-        <App />
+      <App />
     </React.StrictMode>
   </Provider>,
   document.getElementById('root'),
