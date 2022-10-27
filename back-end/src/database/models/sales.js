@@ -1,21 +1,25 @@
 const Sales = (sequelize, DataTypes) => {
   const Sale = sequelize.define("Sales", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    userId: { type: DataTypes.INTEGER, foreignKey: true },
-    sellerId: { type: DataTypes.INTEGER, foreignKey: true },
-    totalPrice: DataTypes.DECIMAL(9, 2),
-    deliveryAdress: DataTypes.STRING,
-    deliveryNumber: DataTypes.STRING,
-    saleDate: DataTypes.DATE,
+    userId: { type: DataTypes.INTEGER, foreignKey: true, field: 'user_id' },
+    sellerId: { type: DataTypes.INTEGER, foreignKey: true, field: 'seller_id' },
+    totalPrice: { type:DataTypes.DECIMAL(9, 2), field: 'total_price' },
+    deliveryAddress: { type:DataTypes.STRING, field: 'delivery_address' },
+    deliveryNumber: { type:DataTypes.STRING, field: 'delivery_number' },
+    saleDate: { type:DataTypes.DATE, field: 'sale_date' },
     status: DataTypes.STRING,
   },
   {
-    createdAt: 'sale_date',
+    createdAt: 'saleDate',
+    tableName: 'Sales',
+    timestamps: false,
   });
 
-  User.associate = (models) => {
-    User.hasMany(models.Sales,
-      { foreignKey: 'userId', as: 'sales' });
+  Sale.associate = (models) => {
+    Sale.hasMany(models.User,
+      { foreignKey: 'userId', as: 'user' });
+    Sale.hasMany(models.User,
+      { foreignKey: 'sellerId', as: 'seller' });
   }
 
   return Sale;
