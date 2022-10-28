@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('sales', {
+    await queryInterface.createTable('Sales', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,20 +12,18 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references:{
-          model: 'users',
+          model: 'Users',
           key: 'id',
         },
-        foreignKey: true,
         field: 'user_id',
       },
       sellerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references:{
-          model: 'users',
+          model: 'Users',
           key: 'id',
         },
-        foreignKey: true,
         field: 'seller_id',
       },
       totalPrice: {
@@ -46,15 +44,20 @@ module.exports = {
       status: {
         type: Sequelize.STRING,
         allowNull: false,
+        defaultValue: 'Pendente',
       },
       saleDate: {
         allowNull: false,
         type: Sequelize.DATE,
-        field: 'sale_date'
+        field: 'sale_date',
       }
+    }, {
+      timestamps: false,
+      createdAt: 'saleDate',
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('sales');
+
+  async down(queryInterface, _Sequelize) {
+    await queryInterface.dropTable('Sales');
   }
 };
