@@ -1,11 +1,12 @@
 const errorMiddleware = (err, _req, res, _next) => {
+  console.log(err);
 
-  // Cond example
-  // if (err.name === 'JsonWebTokenError') {
-  //   return res.status(401).json({ message: 'Expired or invalid token' });
-  // }
+  if (err.message === '404|Cannot find any sale') {
+    const [code, message] = err.message.split('|');
+    return res.status(Number(code)).json({ message });
+  }
 
-  res.status(500).json({ message: err.message });
-}
+  return res.status(500).json({ message: err.message });
+};
 
 module.exports = errorMiddleware;
