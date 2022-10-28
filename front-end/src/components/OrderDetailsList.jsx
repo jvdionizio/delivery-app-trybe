@@ -1,14 +1,17 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { requestApi } from '../services/requests';
 import OrderProductCard from './OrdersProductCard';
 import OrderDetailsInfo from './OrderDetailsInfo';
 
-function OrderDetailsList() {
+function OrderDetailsList({ client }) {
   const [orders, setOrders] = useState(undefined);
   const [products, setProducts] = useState(undefined);
   const [seller, setSeller] = useState(undefined);
   const { pathname } = useLocation();
+
+  console.log(client);
 
   useEffect(() => {
     (async () => {
@@ -39,6 +42,7 @@ function OrderDetailsList() {
             seller={ seller }
             saleDate={ orders?.saleDate }
             status={ orders?.status }
+            client={ client }
           />
         )
       }
@@ -48,6 +52,7 @@ function OrderDetailsList() {
             key={ product.id }
             index={ index + 1 }
             product={ product }
+            client={ client }
           />
         )) : <p>Carregando...</p>
       }
@@ -59,5 +64,9 @@ function OrderDetailsList() {
     </div>
   );
 }
+
+OrderDetailsList.propTypes = {
+  client: PropTypes.string.isRequired,
+};
 
 export default OrderDetailsList;
