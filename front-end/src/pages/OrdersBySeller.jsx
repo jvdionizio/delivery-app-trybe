@@ -4,7 +4,7 @@ import OrdersList from '../components/OrdersList';
 function Login() {
   // <Header />
   return (
-    <OrdersList client="customer" />
+    <OrdersList client="seller" />
   );
 }
 
