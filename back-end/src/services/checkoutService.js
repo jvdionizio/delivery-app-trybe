@@ -1,13 +1,11 @@
-const { SalesProducts } = require('../databases/models');
-// const joiCheckout = require('../middlewares/errors.middleware');
+const { Sales } = require('../databases/models');
 
 const CheckoutServices = {
 
   addSale: async (body) => {
-    // joiCheckout.validate(body);
-    const { itemNumber, productId, quantity } = body
-    const productCreated = await SalesProducts.create({
-      itemNumber, productId, quantity
+    const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status } = body
+    const productCreated = await Sales.create({
+      userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate: Date(), status
     });
     console.log(productCreated);
   },

@@ -2,10 +2,10 @@ const CheckoutServices = require('../services/checkoutServices');
 
 const CheckoutController = {
   addSale: async (req, res) => {
-    const { itemNumber, productId, quantity } = req.body;
+    const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status } = req.body;
 
     await CheckoutServices.addSale({
-      itemNumber, productId, quantity 
+      userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status
     });
     return res.status(201).json('created');
   },
