@@ -26,11 +26,12 @@ function CheckoutAddress() {
 
   const finishedOrder = () => {
     console.log(checkoutProduct);
-    const total = JSON.parse(localStorage.getItem('cart'));
+    const total = JSON.parse(localStorage.getItem('carrinho'));
     axios.post(URL, {
       userId: 1,
       sellerId: 1,
-      totalPrice: total.reduce((acc, value) => acc + value.subTotal, 0).toFixed(2),
+      totalPrice: total
+        .reduce((acc, val) => acc + (val.unitPrice * val.quantity), 0).toFixed(2),
       deliveryAddress: address.deliveryAdress,
       deliveryNumber: address.deliveryNumber,
       status: 'Pendente',

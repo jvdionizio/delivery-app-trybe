@@ -22,7 +22,7 @@ const mockProduct = [
   },
 ];
 
-localStorage.setItem('cart', JSON.stringify(mockProduct));
+localStorage.setItem('carrinho', JSON.stringify(mockProduct));
 
 function CheckoutProducts() {
   const {
@@ -32,14 +32,14 @@ function CheckoutProducts() {
 
   const removeItem = (product) => {
     // recupera o carrinho do localStorage
-    const carrinho = JSON.parse(localStorage.getItem('cart'));
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
     // remove o item do selecionado do array
     const removeProductSelected = carrinho
       .filter((products) => products.itemNumber !== product.itemNumber);
     // add atualização do carrinho
-    localStorage.setItem('cart', JSON.stringify(removeProductSelected));
+    localStorage.setItem('carrinho', JSON.stringify(removeProductSelected));
     // recupera a nova lista
-    const novoCarrinho = JSON.parse(localStorage.getItem('cart'));
+    const novoCarrinho = JSON.parse(localStorage.getItem('carrinho'));
     // atualizando o state do carrinho
     setCheckoutProduct(novoCarrinho);
   };
