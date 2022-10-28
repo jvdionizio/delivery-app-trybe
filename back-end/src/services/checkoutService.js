@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const config = require('../database/config/config');
-const { Sales, Products, SalesProducts } = require('../database/models');
+const { Sales, SalesProducts } = require('../database/models');
 
 const sequelize = new Sequelize(
   process.env.NODE_ENV === 'test' ? config.test : config.development,
@@ -8,12 +8,12 @@ const sequelize = new Sequelize(
 
 const CheckoutServices = {
   addSale: async (body) => {
-    const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status, products } = body
+    const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status, products } = body;
     console.log(products);
 
     const result = await sequelize.transaction(async (t) => {
       const { id } = await Sales.create({
-        userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate: Date(), status
+        userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate: Date(), status,
       }, { transaction: t } );
   
       await SalesProducts.bulkCreate(

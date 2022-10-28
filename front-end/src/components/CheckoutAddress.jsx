@@ -26,7 +26,7 @@ function CheckoutAddress() {
 
   const finishedOrder = () => {
     console.log(checkoutProduct);
-    const total = JSON.parse(localStorage.getItem('carrinho'));
+    const total = JSON.parse(localStorage.getItem('cart'));
     axios.post(URL, {
       userId: 1,
       sellerId: 1,

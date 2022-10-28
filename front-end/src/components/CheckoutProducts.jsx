@@ -7,25 +7,22 @@ const mockProduct = [
     name: 'Cerveja Stella 250ml',
     quantity: 3,
     unitPrice: 3.50,
-    subTotal: 10.50,
   },
   {
     itemNumber: 2,
     name: 'Cerveja Skol Latão 450ml',
     quantity: 4,
     unitPrice: 4.10,
-    subTotal: 16.40,
   },
   {
     itemNumber: 3,
     name: 'Salgadinho Torcida Churrasco',
     quantity: 1,
     unitPrice: 1.56,
-    subTotal: 1.56,
   },
 ];
 
-localStorage.setItem('carrinho', JSON.stringify(mockProduct));
+localStorage.setItem('cart', JSON.stringify(mockProduct));
 
 function CheckoutProducts() {
   const {
@@ -35,14 +32,14 @@ function CheckoutProducts() {
 
   const removeItem = (product) => {
     // recupera o carrinho do localStorage
-    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    const carrinho = JSON.parse(localStorage.getItem('cart'));
     // remove o item do selecionado do array
     const removeProductSelected = carrinho
       .filter((products) => products.itemNumber !== product.itemNumber);
     // add atualização do carrinho
-    localStorage.setItem('carrinho', JSON.stringify(removeProductSelected));
+    localStorage.setItem('cart', JSON.stringify(removeProductSelected));
     // recupera a nova lista
-    const novoCarrinho = JSON.parse(localStorage.getItem('carrinho'));
+    const novoCarrinho = JSON.parse(localStorage.getItem('cart'));
     // atualizando o state do carrinho
     setCheckoutProduct(novoCarrinho);
   };
@@ -95,7 +92,7 @@ function CheckoutProducts() {
                     `customer_checkout__element-order-table-sub-total-${index}`
                   }
                 >
-                  {product.subTotal}
+                  { product.quantity * product.unitPrice }
                 </td>
                 <td>
                   <button
@@ -121,7 +118,7 @@ function CheckoutProducts() {
           {' '}
           {
             checkoutProduct && checkoutProduct
-              .reduce((acc, value) => acc + value.subTotal, 0).toFixed(2)
+              .reduce((acc, val) => acc + (val.unitPrice * val.quantity), 0).toFixed(2)
           }
         </span>
       </div>
