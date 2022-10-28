@@ -1,15 +1,19 @@
 import React, { useState, useContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Context from '../context/Context';
 
-// const URL = 'http://localhost:3001/customer/checkout';
+const URL = 'http://localhost:3001/customer/checkout/';
 
 function CheckoutAddress() {
   const [address, setAddress] = useState({
     deliveryAdress: '',
     deliveryNumber: '',
   });
-  // const navigate = useNavigate();
+
+  const { checkoutProduct } = useContext(Context);
+
+  const navigate = useNavigate();
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -20,28 +24,27 @@ function CheckoutAddress() {
     }));
   };
 
-  const {
-    checkoutProduct,
-  } = useContext(Context);
-
   const finishedOrder = () => {
     console.log(checkoutProduct);
-    // const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-    // axios.post(URL, {
-    //   userId: 1
-    //   sellerId: 1
-    //   totalPrice: carrinho.reduce((acc, value) => acc + value.subTotal, 0).toFixed(2),
-    //   deliveryAdress: address.deliveryAdress
-    //   deliveryNumber: address.deliveryNumber
-    //   status: 'Pendente',
-    // })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     navigate(`/customer/order/${response.data}`, { replace: true });
-    //   })
-    //   .catch((err) => {
-    //     alert(err.response.data.message);
-    //   });
+    const total = JSON.parse(localStorage.getItem('carrinho'));
+    axios.post(URL, {
+      userId: 1,
+      sellerId: 1,
+      totalPrice: total.reduce((acc, value) => acc + value.subTotal, 0).toFixed(2),
+      deliveryAddress: address.deliveryAdress,
+      deliveryNumber: address.deliveryNumber,
+      status: 'Pendente',
+      products: checkoutProduct.map((products) => ({
+        id: products.itemNumber,
+        quantity: products.quantity,
+      })),
+    })
+      .then((response) => {
+        navigate(`/customer/orders/${response.data}`, { replace: true });
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+      });
   };
 
   return (
@@ -89,7 +92,7 @@ function CheckoutAddress() {
           <button
             data-testid="customer_checkout__button-submit-order"
             type="button"
-            onClick={ () => finishedOrder() }
+            onClick={ finishedOrder }
           >
             Finalizar Pedido
           </button>
