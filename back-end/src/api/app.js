@@ -12,6 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use('/images', express.static('public'));
 app.use('/test', routes.testRoute);
 app.use('/customer/orders', routes.salesRoute);
 app.use('/products', routes.productsRoute);
