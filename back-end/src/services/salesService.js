@@ -22,12 +22,10 @@ const getAllBySaleId = async (saleId) => {
 };
 
 const getSellerById = async (sellerId) => {
-  const test = await Users.findByPk(sellerId, {
+  const seller = await Users.findByPk(sellerId, {
       attributes: { exclude: ['id', 'email', 'password', 'role'] },
   });
-  console.log(sellerId);
-  console.log(test);
-  return test;
+  return seller;
 };
 
 const getByPk = async (id) => Sales.findByPk(id);
