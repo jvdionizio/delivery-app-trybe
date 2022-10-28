@@ -1,13 +1,33 @@
-const { Sales } = require('../databases/models');
+const Sequelize = require('sequelize');
+const config = require('../database/config/config');
+const { Sales, Products, SalesProducts } = require('../database/models');
+
+const sequelize = new Sequelize(
+  process.env.NODE_ENV === 'test' ? config.test : config.development,
+);
 
 const CheckoutServices = {
-
   addSale: async (body) => {
-    const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status } = body
-    const productCreated = await Sales.create({
-      userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate: Date(), status
+    const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status, products } = body
+    console.log(products);
+
+    const result = await sequelize.transaction(async (t) => {
+      const { id } = await Sales.create({
+        userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate: Date(), status
+      }, { transaction: t } );
+  
+      await SalesProducts.bulkCreate(
+        products.map((prod) => ({
+          saleId: id,
+          productId: prod.id,
+          quantity: prod.quantity,
+        })),
+        { transaction: t },
+      );
+  
+      return id;
     });
-    console.log(productCreated);
+    return result;
   },
 };
 
