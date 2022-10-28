@@ -22,17 +22,17 @@ function CustomerProducts() {
   };
 
   const verifyLogin = async () => {
-    const data = JSON.parse(localStorage.getItem('user')) || ''; // mock
-    fetchProducts();
-    setUser(data);
-    // const { token } = JSON.parse(localStorage.getItem('user')) || '';
+    // const data = JSON.parse(localStorage.getItem('user')) || ''; // mock
+    // fetchProducts();
+    // setUser(data);
+    const { token } = JSON.parse(localStorage.getItem('user')) || '';
 
-    // await axios.get('http://localhost:3001/token', { token })
-    //   .then((response) => {
-    //     fetchProducts();
-    //     setUser(response.data);
-    //   })
-    //   .catch(() => navigate('/login'));
+    await axios.get('http://localhost:3001/token', { token })
+      .then((response) => {
+        fetchProducts();
+        setUser(response.data);
+      })
+      .catch(() => navigate('/login'));
   };
 
   useEffect(() => {
