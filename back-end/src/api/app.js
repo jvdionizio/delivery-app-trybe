@@ -11,7 +11,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/test', routes.testRoute);
-app.use('/customer/orders', routes.salesRoute);
+app.use('/customer/orders', routes.salesCustomerRoute);
+app.use('/seller/orders', routes.salesSellerRoute);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use(errorMiddleware);
