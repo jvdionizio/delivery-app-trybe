@@ -3,7 +3,7 @@ const { Sales, SalesProducts, Products, Users } = require('../database/models');
 const getAllByUserId = async (userId) => Sales.findAll({ where: { userId } });
 
 const getAllBySaleId = async (saleId) => {
-  const sale = await Sales.findByPk(saleId , {
+  const sale = await Sales.findByPk(saleId, {
     include: [{
         model: Products,
         as: 'salesProducts',
@@ -20,7 +20,7 @@ const getAllBySaleId = async (saleId) => {
 };
 
 const getSellerById = async (sellerId) => {
-  const test = await Users.findByPk(sellerId , {
+  const test = await Users.findByPk(sellerId, {
       attributes: { exclude: ['id', 'email', 'password', 'role'] },
   });
   console.log(sellerId);
