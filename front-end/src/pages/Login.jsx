@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { postLogin, setToken } from '../services/requests';
 
 function Login() {
   const [login, setLogin] = useState({
@@ -7,6 +8,10 @@ function Login() {
     password: '',
     IsDisable: true,
   });
+  const [loginFailed, setLoginFailed] = useState({
+    message: '',
+  });
+  const navigate = useNavigate();
 
   const validateButton = () => {
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -34,6 +39,22 @@ function Login() {
       [name]: value,
     }));
     validateButton();
+  };
+
+  const handleClick = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { token } = await postLogin(login.email, login.password);
+
+      setToken(token);
+
+      localStorage.setItem('token', token);
+
+      navigate('/customer/products', { replace: true });
+    } catch (error) {
+      setLoginFailed({ message: error.message });
+    }
   };
 
   return (
@@ -68,6 +89,7 @@ function Login() {
           data-testid="common_login__button-login"
           preventdefault="true"
           disabled={ login.IsDisable }
+          onClick={ (event) => handleClick(event) }
         >
           Login
         </button>
@@ -82,7 +104,9 @@ function Login() {
       </form>
       <p
         data-testid="common_login__element-invalid-email"
-      />
+      >
+        {loginFailed.message}
+      </p>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Orders from './pages/Orders';
 import OrdersDetails from './pages/OrdersDetails';
@@ -12,7 +12,7 @@ function App() {
       <div>
         <Routes>
           <Route exact path="/login" element={ <Login /> } />
-          <Route exact path="/" element={ <Login /> } />
+          <Route path="/" element={ <Navigate to="/login" /> } />
           <Route exact path="/register" element={ <Register /> } />
           <Route exact path="customer/orders" element={ <Orders /> } />
           <Route exact path="customer/orders/:id" element={ <OrdersDetails /> } />

@@ -11,7 +11,7 @@ const Sales = (sequelize, DataTypes) => {
   },
   {
     createdAt: 'saleDate',
-    tableName: 'Sales',
+    tableName: 'sales',
     timestamps: false,
   });
 
