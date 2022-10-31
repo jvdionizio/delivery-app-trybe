@@ -7,7 +7,7 @@ const userJoiValidation = async (req, res, next) => {
     const { error } = userSchemas.validate({ email, password });
 
     if (error) {
-      res.status(404).json({ message: 'Invalid email/password' });
+      res.status(400).json({ message: 'Invalid email/password' });
     }
 
     next();
