@@ -8,15 +8,9 @@ const checkEmail = async (address) => {
   });
 
   return data;
-}
+};
 
 const login = async (address, password) => {
-  // const data = await Users.findOne({
-  //   where: { email: address },
-  // });
-
-  // if (!data) throw new Error('User not Found');
-
   const md5Password = md5(password);
 
   const token = JWTAuth.createToken({ address, md5Password });
