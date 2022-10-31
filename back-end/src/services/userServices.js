@@ -2,12 +2,20 @@ const md5 = require('md5');
 const { Users } = require('../database/models');
 const JWTAuth = require('../auth/JWTAuth');
 
-const login = async (address, password) => {
+const checkEmail = async (address) => {
   const data = await Users.findOne({
-    where: { email: address },
+      where: { email: address },
   });
 
-  if (!data) throw new Error('User not Found');
+  return data;
+}
+
+const login = async (address, password) => {
+  // const data = await Users.findOne({
+  //   where: { email: address },
+  // });
+
+  // if (!data) throw new Error('User not Found');
 
   const md5Password = md5(password);
 
@@ -18,4 +26,5 @@ const login = async (address, password) => {
 
 module.exports = {
   login,
+  checkEmail,
 };
