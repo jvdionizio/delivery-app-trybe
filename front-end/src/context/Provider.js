@@ -4,23 +4,29 @@ import Context from './Context';
 
 function Provider({ children }) {
   const [checkoutProduct, setCheckoutProduct] = useState([]);
+  const [users, setUsers] = useState({
+    message: 'certo',
+  });
 
   useEffect(() => {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    const carrinho = JSON.parse(localStorage.getItem('cart'));
     setCheckoutProduct(carrinho);
   }, []);
 
-  const contextValue = useMemo(() => ({
+  const value = useMemo(() => ({
+    users,
+    setUsers,
     checkoutProduct,
     setCheckoutProduct,
-  }), [checkoutProduct]);
+  }), [checkoutProduct, users]);
 
   return (
-    <Context.Provider value={ contextValue }>
+    <Context.Provider value={ value }>
       {children}
     </Context.Provider>
   );
 }
+
 Provider.propTypes = {
   children: PropTypes.node.isRequired,
 };

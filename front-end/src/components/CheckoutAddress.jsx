@@ -26,10 +26,10 @@ function CheckoutAddress() {
 
   const finishedOrder = () => {
     console.log(checkoutProduct);
-    const total = JSON.parse(localStorage.getItem('carrinho'));
+    const total = JSON.parse(localStorage.getItem('cart'));
     axios.post(URL, {
       userId: 1,
-      sellerId: 1,
+      sellerId: 2,
       totalPrice: total
         .reduce((acc, val) => acc + (val.unitPrice * val.quantity), 0).toFixed(2),
       deliveryAddress: address.deliveryAdress,
@@ -51,53 +51,51 @@ function CheckoutAddress() {
   return (
     <div>
       <div>
-        <div>
-          <p>Detalhes e Endereço para Entrega</p>
-        </div>
-        <div>
-          <label htmlFor="salesPerson">
-            P. Vendedora Responsável
-            <select id="salesPerson">
-              <option
-                data-testid="customer_checkout__select-seller"
-                value="Fulana"
-              >
-                Fulana Pereira
-              </option>
-            </select>
-          </label>
-          <label htmlFor="deliveryAdress">
-            Endereço
-            <input
-              data-testid="customer_checkout__input-address"
-              id="deliveryAdress"
-              type="text"
-              name="deliveryAdress"
-              value={ address.deliveryAdress }
-              onChange={ handleChange }
-            />
-          </label>
-          <label htmlFor="deliveryNumber">
-            Número
-            <input
-              data-testid="customer_checkout__input-address-number"
-              id="deliveryNumber"
-              type="text"
-              name="deliveryNumber"
-              value={ address.deliveryNumber }
-              onChange={ handleChange }
-            />
-          </label>
-        </div>
-        <div>
-          <button
-            data-testid="customer_checkout__button-submit-order"
-            type="button"
-            onClick={ finishedOrder }
-          >
-            Finalizar Pedido
-          </button>
-        </div>
+        <p>Detalhes e Endereço para Entrega</p>
+      </div>
+      <div>
+        <label htmlFor="salesPerson">
+          P. Vendedora Responsável
+          <select id="salesPerson">
+            <option
+              data-testid="customer_checkout__select-seller"
+              value="Fulana"
+            >
+              Fulana Pereira
+            </option>
+          </select>
+        </label>
+        <label htmlFor="deliveryAdress">
+          Endereço
+          <input
+            data-testid="customer_checkout__input-address"
+            id="deliveryAdress"
+            type="text"
+            name="deliveryAdress"
+            value={ address.deliveryAdress }
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="deliveryNumber">
+          Número
+          <input
+            data-testid="customer_checkout__input-address-number"
+            id="deliveryNumber"
+            type="text"
+            name="deliveryNumber"
+            value={ address.deliveryNumber }
+            onChange={ handleChange }
+          />
+        </label>
+      </div>
+      <div>
+        <button
+          data-testid="customer_checkout__button-submit-order"
+          type="button"
+          onClick={ finishedOrder }
+        >
+          Finalizar Pedido
+        </button>
       </div>
     </div>
   );

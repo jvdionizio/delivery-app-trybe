@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/test', routes.testRoute);
+app.use('/login', routes.userRoute);
 app.use('/customer/orders', routes.salesRoute);
 app.use('/customer/checkout', routes.checkoutRoute);
 app.get('/coffee', (_req, res) => res.status(418).end());
