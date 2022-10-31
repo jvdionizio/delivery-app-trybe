@@ -27,7 +27,7 @@ function CustomerProducts() {
     // setUser(data);
     const { token } = JSON.parse(localStorage.getItem('user')) || '';
 
-    await axios.get('http://localhost:3001/token', { token })
+    await axios.post('http://localhost:3001/token', { token })
       .then((response) => {
         fetchProducts();
         setUser(response.data);

@@ -17,7 +17,7 @@ app.use('/test', routes.testRoute);
 app.use('/login', routes.userRoute);
 app.use('/customer/orders', routes.salesRoute);
 app.use('/products', routes.productsRoute);
-app.get('/token', verifyTokenController);
+app.post('/token', verifyTokenController);
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use(errorMiddleware);
