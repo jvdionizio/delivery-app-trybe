@@ -1,5 +1,5 @@
 const Sales = (sequelize, DataTypes) => {
-  const Sale = sequelize.define("Sales", {
+  const Sale = sequelize.define("sales", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     userId: { type: DataTypes.INTEGER, foreignKey: true, field: 'user_id' },
     sellerId: { type: DataTypes.INTEGER, foreignKey: true, field: 'seller_id' },
@@ -11,7 +11,7 @@ const Sales = (sequelize, DataTypes) => {
   },
   {
     createdAt: 'saleDate',
-    tableName: 'Sales',
+    tableName: 'sales',
     timestamps: false,
   });
 
