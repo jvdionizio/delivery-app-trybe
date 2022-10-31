@@ -5,8 +5,8 @@ const login = async (req, res) => {
   const token = await userServices.login(email, password);
 
   return res.status(200).json(token);
-}
+};
 
 module.exports = {
   login,
-}
+};

@@ -5,7 +5,7 @@ const JWTAuth = require('../auth/JWTAuth');
 const login = async (address, password) => {
   const data = await Users.findOne({
     where: { email: address },
-  })
+  });
 
   if (!data) throw new Error('User not Found');
 
@@ -14,8 +14,8 @@ const login = async (address, password) => {
   const token = JWTAuth.createToken({ address, md5Password });
 
   return token;
-}
+};
 
 module.exports = {
   login,
-}
+};

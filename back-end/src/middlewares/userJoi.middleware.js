@@ -1,5 +1,4 @@
 const userSchemas = require('./schemas/userSchemas');
-const Users = require('../database/models/users');
 
 const userJoiValidation = async (req, res, next) => {
   try {
@@ -8,7 +7,7 @@ const userJoiValidation = async (req, res, next) => {
     const { error } = userSchemas.validate({ email, password });
 
     if (error) {
-      res.status(404).json({ message: 'Invalid email/password' })
+      res.status(404).json({ message: 'Invalid email/password' });
     }
 
     next();
