@@ -14,6 +14,7 @@ app.use(cors());
 
 app.use('/images', express.static('public'));
 app.use('/test', routes.testRoute);
+app.use('/login', routes.userRoute);
 app.use('/customer/orders', routes.salesRoute);
 app.use('/products', routes.productsRoute);
 app.get('/token', verifyTokenController);
