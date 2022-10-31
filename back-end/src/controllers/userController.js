@@ -2,9 +2,9 @@ const userServices = require('../services/userServices');
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  const result = await userServices.login(email, password);
+  const token = await userServices.login(email, password);
 
-  return res.status(200).json(result);
+  return res.status(200).json(token);
 }
 
 module.exports = {
