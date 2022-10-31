@@ -8,7 +8,7 @@ const Users = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
-    tableName: 'Users',
+    tableName: 'users',
   });
 
   return User;
