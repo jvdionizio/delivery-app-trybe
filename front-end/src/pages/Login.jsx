@@ -45,13 +45,24 @@ function Login() {
     event.preventDefault();
 
     try {
-      const { token } = await postLogin(login.email, login.password);
+      const userObj = await postLogin(login.email, login.password);
+      const { role } = userObj;
 
-      setToken(token);
+      setToken(userObj.token);
 
-      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(userObj));
 
-      navigate('/customer/products', { replace: true });
+      switch (role) {
+      case 'administrator':
+        navigate('/admin/manage', { replace: true });
+        break;
+      case 'seller':
+        navigate('/seller/orders', { replace: true });
+        break;
+      default:
+        navigate('/customer/products', { replace: true });
+        break;
+      }
     } catch (error) {
       setLoginFailed({ message: error.message });
     }

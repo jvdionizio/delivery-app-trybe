@@ -2,20 +2,24 @@ const md5 = require('md5');
 const { Users } = require('../database/models');
 const JWTAuth = require('../auth/JWTAuth');
 
-const checkEmail = async (address) => {
+const checkEmail = async (address, password) => {
+  const md5Password = md5(password);
+
   const data = await Users.findOne({
-      where: { email: address },
+      where: { email: address, password: md5Password },
+      attributes: { exclude: 'password' },
   });
 
+  if (data) {
+    return data.dataValues;
+  }
   return data;
 };
 
-const login = async (address, password) => {
-  const md5Password = md5(password);
+const login = async (userObj) => {
+  const token = JWTAuth.createToken(userObj);
 
-  const token = JWTAuth.createToken({ address, md5Password });
-
-  return token;
+  return { ...userObj, token };
 };
 
 module.exports = {
