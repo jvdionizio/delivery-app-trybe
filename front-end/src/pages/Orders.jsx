@@ -10,7 +10,7 @@ function Orders() {
 
   useEffect(() => {
     (async () => {
-      const currentUser = JSON.parse(localStorage.getItem('user') || {});
+      const currentUser = JSON.parse(localStorage?.getItem('user')) || navigate('/login');
       const logged = await verifyToken(currentUser?.token);
       if (logged) {
         setUser(currentUser);
@@ -24,8 +24,8 @@ function Orders() {
     <div>
       { user ? (
         <div>
-          <Header user={ user.name } />
-          <OrdersList client="customer" userId={ user.id } />
+          <Header client={ user.role } user={ user.name } />
+          <OrdersList client={ user.role } userId={ user.id } />
         </div>
       ) : <p>Loading...</p> }
     </div>
