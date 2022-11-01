@@ -5,21 +5,16 @@ import OrderCard from './OrderCard';
 import OrderCardSeller from './OrderCardSeller';
 import { requestApi } from '../services/requests';
 
-const NUMBER_TWO = 2;
-const NUMBER_THREE = 3;
-
-function OrdersList({ client }) {
+function OrdersList({ client, userId }) {
   const [orders, setOrders] = useState(undefined);
 
   useEffect(() => {
     (async () => {
-      // const userId = localStorage.getItem('orders').userId;
-      const userId = client === 'customer' ? NUMBER_THREE : NUMBER_TWO;
       requestApi(`/${client}/orders/${userId}`)
         .then((response) => setOrders(response))
         .catch((error) => console.log(error));
     })();
-  }, [client]);
+  }, [client, userId]);
 
   return (
     <div>
@@ -50,7 +45,7 @@ function OrdersList({ client }) {
               />
             ) }
           </Link>
-        )) : <p>Carregando...</p>
+        )) : <p>Não existe nenhuma venda...</p>
       }
     </div>
   );
@@ -58,6 +53,7 @@ function OrdersList({ client }) {
 
 OrdersList.propTypes = {
   client: PropTypes.string.isRequired,
+  userId: PropTypes.number.isRequired,
 };
 
 export default OrdersList;
