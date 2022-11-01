@@ -1,11 +1,7 @@
-FROM node:16.18
+FROM node:16.14-alpine
 
 WORKDIR /app/back-end
  
-COPY package* ./
-
-RUN npm install
-
 COPY . .
-
+RUN npm install
 CMD [ "npm", "run", "dev" ]

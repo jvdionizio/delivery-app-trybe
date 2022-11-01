@@ -4,6 +4,7 @@ import Context from './Context';
 
 function Provider({ children }) {
   const [checkoutProduct, setCheckoutProduct] = useState([]);
+  const [totalPrice, setTotalPrice] = useState('0,00');
   const [users, setUsers] = useState({
     message: 'certo',
   });
@@ -16,9 +17,11 @@ function Provider({ children }) {
   const value = useMemo(() => ({
     users,
     setUsers,
+    totalPrice,
+    setTotalPrice,
     checkoutProduct,
-    setCheckoutProduct,
-  }), [checkoutProduct, users]);
+    setCheckoutProduct
+  }), [users, totalPrice, checkoutProduct]);
 
   return (
     <Context.Provider value={ value }>

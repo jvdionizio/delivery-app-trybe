@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const tokenKey = process.env.JWT_SECRET || 'secretKey';
+const tokenKey = require('fs')
+  .readFileSync('./jwt.evaluation.key', { encoding: 'utf-8' });
 
 const createToken = (data) => {
   const token = jwt.sign(
