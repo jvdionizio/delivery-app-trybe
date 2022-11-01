@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-const verifyToken = (token) => {
-  const tokenKey = require("fs")
-    .readFileSync("./jwt.evaluation.key", { encoding: "utf-8" });
+const tokenKey = require('fs')
+  .readFileSync('./jwt.evaluation.key', { encoding: 'utf-8' });
 
+const verifyToken = (token) => {
   try {
     const decode = jwt.verify(token, tokenKey);
 
