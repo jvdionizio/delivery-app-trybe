@@ -15,12 +15,14 @@ function Header({ user }) {
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-products"
+        onClick={ () => navigate('/customer/products') }
       >
         Produtos
       </button>
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-orders"
+        onClick={ () => navigate('/customer/orders') }
       >
         Meus pedidos
       </button>
