@@ -7,10 +7,14 @@ function Provider({ children }) {
     message: 'certo',
   });
 
+  const [totalPrice, setTotalPrice] = useState('0,00');
+
   const value = useMemo(() => ({
     users,
     setUsers,
-  }), [users]);
+    totalPrice,
+    setTotalPrice,
+  }), [users, totalPrice]);
 
   return (
     <Context.Provider
@@ -20,6 +24,7 @@ function Provider({ children }) {
     </Context.Provider>
   );
 }
+
 Provider.propTypes = {
   children: PropTypes.node.isRequired,
 };
