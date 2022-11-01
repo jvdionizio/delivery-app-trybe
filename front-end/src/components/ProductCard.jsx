@@ -71,10 +71,11 @@ function ProductCard({ price, image, name, id, dataTestId }) {
 
   return (
     <div>
+      <span>R$ </span>
       <span
         data-testid={ `customer_products__element-card-price-${dataTestId}` }
       >
-        {price}
+        {Number(price).toFixed(2).replace('.', ',')}
       </span>
       <img
         src={ image }

@@ -30,7 +30,7 @@ function CustomerProducts() {
     await axios.post('http://localhost:3001/token', { token })
       .then((response) => {
         fetchProducts();
-        setUser(response.data);
+        setUser(response.data.data);
       })
       .catch(() => navigate('/login'));
   };
@@ -57,10 +57,14 @@ function CustomerProducts() {
       }
       <button
         type="button"
-        data-testid="customer_products__checkout-bottom-value"
+        data-testid="customer_products__button-cart"
         onClick={ () => navigate('/customer/checkout') }
+        disabled={ totalPrice === '0,00' }
       >
-        {`Ver carrinho: R$ ${totalPrice}`}
+        <span>Ver carrinho: R$ </span>
+        <span data-testid="customer_products__checkout-bottom-value">
+          { totalPrice }
+        </span>
       </button>
     </div>
   );

@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
 
 const verifyToken = (token) => {
-  const JWT_SECRET = process.env.JWT_SECRET || 'secretKey';
+  const tokenKey = require("fs")
+    .readFileSync("./jwt.evaluation.key", { encoding: "utf-8" });
 
   try {
-    const decode = jwt.verify(token, JWT_SECRET);
+    const decode = jwt.verify(token, tokenKey);
 
     return decode;
   } catch (err) {
