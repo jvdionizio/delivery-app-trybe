@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { postLogin, setToken } from '../services/requests';
+import { postLogin, setToken, verifyToken } from '../services/requests';
 
 function Login() {
   const [login, setLogin] = useState({
@@ -12,6 +12,19 @@ function Login() {
     message: '',
   });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      const currentUser = localStorage?.getItem('user');
+      if (currentUser) {
+        const parsed = JSON.parse(currentUser);
+        const logged = await verifyToken(parsed.token);
+        if (logged) {
+          navigate(`/${parsed.role}/orders`);
+        }
+      }
+    })();
+  }, [navigate]);
 
   const validateButton = () => {
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
