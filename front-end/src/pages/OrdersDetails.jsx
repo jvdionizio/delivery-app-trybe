@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 import OrderDetailsList from '../components/OrderDetailsList';
+import { verifyToken } from '../services/requests';
 
 function OrdersDetails() {
-  const [role, setRole] = useState('');
+  const [user, setUser] = useState(undefined);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    setRole(user.role || 'customer');
-  }, []);
+    (async () => {
+      const currentUser = JSON.parse(localStorage?.getItem('user')) || navigate('/login');
+      const logged = await verifyToken(currentUser?.token);
+      if (logged) {
+        setUser(currentUser);
+      } else {
+        navigate('/login');
+      }
+    })();
+  }, [navigate]);
 
   return (
     <div>
-      <p>Detalhe do Pedido</p>
-      <OrderDetailsList client={ role } />
+      { user ? (
+        <div>
+          <Header client={ user.role } user={ user.name } />
+          <OrderDetailsList client={ user.role } userId={ user.id } />
+        </div>
+      ) : <p>Loading...</p> }
     </div>
   );
 }
