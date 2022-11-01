@@ -12,7 +12,6 @@ function App() {
     <Router>
       <div>
         <Routes>
-          <Route exact path="/" element={ <Login /> } />
           <Route exact path="/customer/products" element={ <CustomerProducts /> } />
           <Route exact path="/login" element={ <Login /> } />
           <Route exact path="/" element={ <Navigate to="/login" /> } />
