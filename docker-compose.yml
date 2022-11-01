@@ -6,6 +6,8 @@ services:
     build: ./front-end
     ports:
       - 3000:3000
+    environment:
+      - WATCHPACK_POLLING=true
     working_dir: /app/front-end
     volumes:
       - ./front-end:/app/front-end
