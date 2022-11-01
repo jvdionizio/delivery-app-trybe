@@ -51,7 +51,7 @@ function CustomerProducts() {
             price={ product.price }
             image={ product.urlImage }
             id={ product.id }
-            dataTestId={ index }
+            dataTestId={ index + 1 }
           />
         ))
       }
