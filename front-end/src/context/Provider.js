@@ -20,7 +20,7 @@ function Provider({ children }) {
     totalPrice,
     setTotalPrice,
     checkoutProduct,
-    setCheckoutProduct
+    setCheckoutProduct,
   }), [users, totalPrice, checkoutProduct]);
 
   return (

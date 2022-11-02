@@ -7,7 +7,7 @@ const URL = 'http://localhost:3001/customer/checkout/';
 
 function CheckoutAddress() {
   const [address, setAddress] = useState({
-    deliveryAdress: '',
+    deliveryAddress: '',
     deliveryNumber: '',
   });
 
@@ -24,21 +24,26 @@ function CheckoutAddress() {
     }));
   };
 
-  const finishedOrder = () => {
-    console.log(checkoutProduct);
+  const finishedOrder = async () => {
     const total = JSON.parse(localStorage.getItem('cart'));
-    axios.post(URL, {
-      userId: 1,
+    const { token } = JSON.parse(localStorage.getItem('user')) || '';
+    const products = checkoutProduct && checkoutProduct.map((prod) => ({
+      id: prod.itemNumber,
+      quantity: prod.quantity,
+    }));
+    await axios.post(URL, {
+      userId: 3,
       sellerId: 2,
       totalPrice: total
-        .reduce((acc, val) => acc + (val.unitPrice * val.quantity), 0).toFixed(2),
-      deliveryAddress: address.deliveryAdress,
+        .reduce((acc, val) => acc + (val.price * val.quantity), 0)
+        .toFixed(2),
+      deliveryAddress: address.deliveryAddress,
       deliveryNumber: address.deliveryNumber,
-      status: 'Pendente',
-      products: checkoutProduct.map((products) => ({
-        id: products.itemNumber,
-        quantity: products.quantity,
-      })),
+      products,
+    }, {
+      headers: {
+        authorization: token,
+      },
     })
       .then((response) => {
         navigate(`/customer/orders/${response.data}`, { replace: true });
@@ -56,23 +61,25 @@ function CheckoutAddress() {
       <div>
         <label htmlFor="salesPerson">
           P. Vendedora Responsável
-          <select id="salesPerson">
+          <select
+            data-testid="customer_checkout__select-seller"
+            id="salesPerson"
+          >
             <option
-              data-testid="customer_checkout__select-seller"
               value="Fulana"
             >
               Fulana Pereira
             </option>
           </select>
         </label>
-        <label htmlFor="deliveryAdress">
+        <label htmlFor="deliveryAddress">
           Endereço
           <input
             data-testid="customer_checkout__input-address"
-            id="deliveryAdress"
+            id="deliveryAddress"
             type="text"
-            name="deliveryAdress"
-            value={ address.deliveryAdress }
+            name="deliveryAddress"
+            value={ address.deliveryAddress }
             onChange={ handleChange }
           />
         </label>

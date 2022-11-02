@@ -9,11 +9,11 @@ const sequelize = new Sequelize(
 const CheckoutServices = {
   addSale: async (body) => {
     const { userId, sellerId, totalPrice,
-      deliveryAddress, deliveryNumber, status, products } = body;
+      deliveryAddress, deliveryNumber, products } = body;
 
     const result = await sequelize.transaction(async (t) => {
       const { id } = await Sales.create({
-        userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate: Date(), status,
+        userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate: Date(),
       }, { transaction: t });
   
       await SalesProducts.bulkCreate(

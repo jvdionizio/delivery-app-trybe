@@ -1,34 +1,14 @@
-import React, { useContext } from 'react';
-import Context from '../context/Context';
-
-// const mockProduct = [
-//   {
-//     itemNumber: 1,
-//     name: 'Cerveja Stella 250ml',
-//     quantity: 3,
-//     unitPrice: 3.50,
-//   },
-//   {
-//     itemNumber: 2,
-//     name: 'Cerveja Skol Latão 450ml',
-//     quantity: 4,
-//     unitPrice: 4.10,
-//   },
-//   {
-//     itemNumber: 3,
-//     name: 'Salgadinho Torcida Churrasco',
-//     quantity: 1,
-//     unitPrice: 1.56,
-//   },
-// ];
-
-// localStorage.setItem('cart', JSON.stringify(mockProduct));
+import React, { useEffect, useState } from 'react';
+// import Context from '../context/Context';
 
 function CheckoutProducts() {
-  const {
-    checkoutProduct,
-    setCheckoutProduct,
-  } = useContext(Context);
+  const [checkoutProduct, setCheckoutProduct] = useState([]);
+
+  useEffect(() => {
+    const carrinho = JSON.parse(localStorage.getItem('cart'));
+    console.log('provider', carrinho);
+    setCheckoutProduct(carrinho);
+  }, []);
 
   const removeItem = (product) => {
     // recupera o carrinho do localStorage
@@ -63,7 +43,7 @@ function CheckoutProducts() {
                   `customer_checkout__element-order-table-item-number-${index}`
                 }
               >
-                {product.itemNumber}
+                { index + 1 }
               </td>
               <td
                 data-testid={
@@ -84,14 +64,14 @@ function CheckoutProducts() {
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                {product.unitPrice}
+                { Number(product.price).toFixed(2).replace('.', ',') }
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                { product.quantity * product.unitPrice }
+                { Number(product.quantity * product.price).toFixed(2).replace('.', ',') }
               </td>
               <td>
                 <button
@@ -116,7 +96,8 @@ function CheckoutProducts() {
           {' '}
           {
             checkoutProduct && checkoutProduct
-              .reduce((acc, val) => acc + (val.unitPrice * val.quantity), 0).toFixed(2)
+              .reduce((acc, val) => acc + (val.price * val.quantity), 0)
+              .toFixed(2).replace('.', ',')
           }
         </span>
       </div>
