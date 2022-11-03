@@ -19,8 +19,8 @@ function Login() {
       if (currentUser) {
         const parsed = JSON.parse(currentUser);
         const logged = await verifyToken(parsed.token);
-        if (logged) {
-          navigate(`/${parsed.role}/orders`);
+        if (logged && parsed.role === 'customer') {
+          navigate(`/${parsed.role}/products`);
         }
       }
     })();
