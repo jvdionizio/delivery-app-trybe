@@ -4,14 +4,11 @@ import React from 'react';
 const FOUR_DIGITS = 4;
 
 function OrderCard({ id, saleDate, totalPrice, status }) {
-  // function formatDate(date) {
-  //   console.log(date);
-  //   const dateTime = new Date(date);
-  //   const day = dateTime.getDate();
-  //   const month = dateTime.getMonth();
-  //   const year = dateTime.getFullYear();
-  //   return [day, month, year].join('/');
-  // }
+  function formatDate(date) {
+    const dateTime = new Date(date);
+    const localDate = dateTime.toLocaleDateString('pt-BR');
+    return localDate;
+  }
 
   const divBorder = {
     border: '1px solid black',
@@ -37,7 +34,7 @@ function OrderCard({ id, saleDate, totalPrice, status }) {
       <p
         data-testid={ `customer_orders__element-order-date-${id}` }
       >
-        {saleDate}
+        {formatDate(saleDate)}
       </p>
       <p
         data-testid={ `customer_orders__element-card-price-${id}` }
