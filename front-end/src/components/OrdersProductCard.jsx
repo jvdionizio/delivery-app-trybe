@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function OrdersProductCard({ index, product }) {
+function OrdersProductCard({ index, product, client }) {
   console.log(product);
 
   function subTotalPerItem() {
@@ -22,34 +22,36 @@ function OrdersProductCard({ index, product }) {
   return (
     <div style={ divBorder }>
       <p
-        data-testid={ `customer_order_details__element-order-table-item-number-${index}` }
+        data-testid={
+          `${client}_order_details__element-order-table-item-number-${index}`
+        }
       >
         { index }
       </p>
       <p
         data-testid={
-          `customer_order_details__element-order-details-label-delivery-status${index}`
+          `${client}_order_details__element-order-details-label-delivery-status${index}`
         }
       >
         { product.name }
       </p>
       <p
         data-testid={
-          `customer_order_details__element-order-table-quantity-${index}`
+          `${client}_order_details__element-order-table-quantity-${index}`
         }
       >
         { product.productsSales.quantity }
       </p>
       <p
         data-testid={
-          `customer_order_details__element-order-table-unit-price-${index}`
+          `${client}_order_details__element-order-table-unit-price-${index}`
         }
       >
         {`R$${String(product.price).replace('.', ',')}`}
       </p>
       <p
         data-testid={
-          `customer_order_details__element-order-table-sub-total-${index}`
+          `${client}_order_details__element-order-table-sub-total-${index}`
         }
       >
         {`R$${String(subTotalPerItem().toFixed(2)).replace('.', ',')}`}
@@ -68,6 +70,7 @@ OrdersProductCard.propTypes = {
       quantity: PropTypes.number,
     }),
   }).isRequired,
+  client: PropTypes.string.isRequired,
 };
 
 export default OrdersProductCard;

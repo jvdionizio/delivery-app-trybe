@@ -2,6 +2,8 @@ const { Sales, SalesProducts, Products, Users } = require('../database/models');
 
 const getAllByUserId = async (userId) => Sales.findAll({ where: { userId } });
 
+const getAllBySellerId = async (sellerId) => Sales.findAll({ where: { sellerId } });
+
 const getAllBySaleId = async (saleId) => {
   const sale = await Sales.findByPk(saleId, {
     include: [{
@@ -20,12 +22,10 @@ const getAllBySaleId = async (saleId) => {
 };
 
 const getSellerById = async (sellerId) => {
-  const test = await Users.findByPk(sellerId, {
+  const seller = await Users.findByPk(sellerId, {
       attributes: { exclude: ['id', 'email', 'password', 'role'] },
   });
-  console.log(sellerId);
-  console.log(test);
-  return test;
+  return seller;
 };
 
 const getByPk = async (id) => Sales.findByPk(id);
@@ -38,6 +38,7 @@ const updateStatusBySaleId = async (saleId, status) => {
 
 module.exports = {
   getAllByUserId,
+  getAllBySellerId,
   getAllBySaleId,
   getByPk,
   updateStatusBySaleId,

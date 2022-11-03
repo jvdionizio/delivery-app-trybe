@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-function Header({ user }) {
+function Header({ client, user }) {
   const navigate = useNavigate();
 
   const logout = () => {
@@ -12,15 +12,19 @@ function Header({ user }) {
 
   return (
     <header>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-products"
-      >
-        Produtos
-      </button>
+      { client === 'customer' && (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-products"
+          onClick={ () => navigate('/customer/products') }
+        >
+          Produtos
+        </button>
+      ) }
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-orders"
+        onClick={ () => navigate(`/${client}/orders`) }
       >
         Meus pedidos
       </button>
@@ -40,8 +44,14 @@ function Header({ user }) {
   );
 }
 
+Header.defaultProps = {
+  client: 'customer',
+  user: '',
+};
+
 Header.propTypes = {
-  user: PropTypes.string.isRequired,
+  user: PropTypes.string,
+  client: PropTypes.string,
 };
 
 export default Header;

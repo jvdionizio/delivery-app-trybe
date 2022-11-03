@@ -1,13 +1,15 @@
 const testRoute = require('./example');
-const salesRoute = require('./sales');
+const salesCustomerRoute = require('./salesCustomer');
+const salesSellerRoute = require('./salesSeller');
 const checkoutRoute = require('./checkout');
 const productsRoute = require('./products');
 const userRoute = require('./login');
 
 module.exports = {
   testRoute,
-  salesRoute,
   checkoutRoute,
   productsRoute,
   userRoute,
+  salesCustomerRoute,
+  salesSellerRoute,
 };

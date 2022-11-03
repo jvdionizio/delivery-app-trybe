@@ -14,8 +14,9 @@ app.use(cors());
 
 app.use('/images', express.static('public'));
 app.use('/test', routes.testRoute);
+app.use('/customer/orders', routes.salesCustomerRoute);
+app.use('/seller/orders', routes.salesSellerRoute);
 app.use('/login', routes.userRoute);
-app.use('/customer/orders', routes.salesRoute);
 app.use('/customer/checkout', routes.checkoutRoute);
 app.use('/products', routes.productsRoute);
 app.post('/token', verifyTokenController);

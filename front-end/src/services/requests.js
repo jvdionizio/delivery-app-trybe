@@ -8,6 +8,15 @@ export const setToken = (token) => {
   api.defaults.headers.common.Authorization = token;
 };
 
+export const verifyToken = async (token) => {
+  try {
+    await api.post('/token', { token });
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const requestApi = async (endpoint) => {
   console.log('endpoint', endpoint);
   const { data } = await api.get(endpoint);
