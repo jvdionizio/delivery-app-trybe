@@ -7,6 +7,7 @@ const DELIVERY = 'Em Trânsito';
 
 function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
   const [deliveryState, setDeliveryState] = useState(status);
+  // ...
 
   function formatDate(date) {
     const dateTime = new Date(date);
