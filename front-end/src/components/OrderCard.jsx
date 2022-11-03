@@ -32,7 +32,7 @@ function OrderCard({ id, saleDate, totalPrice, status }) {
       <p
         data-testid={ `customer_orders__element-delivery-status-${id}` }
       >
-        {status.toUpperCase()}
+        {status}
       </p>
       <p
         data-testid={ `customer_orders__element-order-date-${id}` }
