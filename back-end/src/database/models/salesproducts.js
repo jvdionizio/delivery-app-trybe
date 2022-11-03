@@ -6,7 +6,7 @@ const SalesProducts = (sequelize, DataTypes) => {
     },
     {
       timestamps: false,
-      tableName: 'salesProducts'
+      tableName: 'sales_products'
     }
   );
 
