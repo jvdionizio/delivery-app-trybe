@@ -15,7 +15,7 @@ const CheckoutServices = {
       const { id } = await Sales.create({
         userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate: Date(),
       }, { transaction: t });
-  
+
       await SalesProducts.bulkCreate(
         products.map((prod) => ({
           saleId: id,
@@ -24,7 +24,7 @@ const CheckoutServices = {
         })),
         { transaction: t },
       );
-  
+
       return id;
     });
     return result;

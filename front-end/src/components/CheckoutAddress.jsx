@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Context from '../context/Context';
+// import Context from '../context/Context';
 
 const URL = 'http://localhost:3001/customer/checkout/';
 
@@ -11,7 +11,7 @@ function CheckoutAddress() {
     deliveryNumber: '',
   });
 
-  const { checkoutProduct } = useContext(Context);
+  // const { checkoutProduct } = useContext(Context);
 
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ function CheckoutAddress() {
   const finishedOrder = async () => {
     const total = JSON.parse(localStorage.getItem('cart'));
     const { token } = JSON.parse(localStorage.getItem('user')) || '';
-    const products = checkoutProduct && checkoutProduct.map((prod) => ({
+    const products = total.map((prod) => ({
       id: prod.itemNumber,
       quantity: prod.quantity,
     }));
