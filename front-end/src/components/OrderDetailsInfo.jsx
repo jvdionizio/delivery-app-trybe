@@ -3,6 +3,8 @@ import React from 'react';
 import { changeStatus } from '../services/requests';
 
 const FOUR_DIGITS = 4;
+const DELIVERY = 'Em Trânsito';
+
 function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
   const changeStatusOrder = (orderId, newStatus) => {
     changeStatus(orderId, newStatus)
@@ -12,7 +14,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
 
   const handleClickCustomer = (e) => {
     e.preventDefault();
-    if (status === 'Em Trânsito') {
+    if (status === DELIVERY) {
       changeStatusOrder(id, 'Entregue');
     }
     console.log('Status need to be -Em Trânsito-');
@@ -50,7 +52,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
           `${client}_order_details__element-order-details-label-delivery-status`
         }
       >
-        {status.toUpperCase()}
+        {status}
       </p>
       {
         client === 'customer' && (
@@ -58,6 +60,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
             type="button"
             onClick={ handleClickCustomer }
             data-testid={ `${client}_order_details__button-delivery-check` }
+            disabled={ status !== DELIVERY }
           >
             Marcar como Entregue
           </button>
