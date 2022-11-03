@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { changeStatus } from '../services/requests';
 
 const FOUR_DIGITS = 4;
 const DELIVERY = 'Em Trânsito';
 
 function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
+  const [deliveryState, setDeliveryState] = useState(status);
+
   function formatDate(date) {
     const dateTime = new Date(date);
     const localDate = dateTime.toLocaleDateString('pt-BR');
@@ -13,6 +15,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
   }
 
   const changeStatusOrder = (orderId, newStatus) => {
+    setDeliveryState(newStatus);
     changeStatus(orderId, newStatus)
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
@@ -20,10 +23,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
 
   const handleClickCustomer = (e) => {
     e.preventDefault();
-    if (status === DELIVERY) {
-      changeStatusOrder(id, 'Entregue');
-    }
-    console.log('Status need to be -Em Trânsito-');
+    changeStatusOrder(id, 'Entregue');
   };
 
   const handleClickPreparing = (e) => {
@@ -58,7 +58,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
           `${client}_order_details__element-order-details-label-delivery-status`
         }
       >
-        {status}
+        {deliveryState}
       </p>
       {
         client === 'customer' && (
@@ -66,7 +66,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
             type="button"
             onClick={ handleClickCustomer }
             data-testid={ `${client}_order_details__button-delivery-check` }
-            disabled={ status !== DELIVERY }
+            disabled={ deliveryState !== DELIVERY }
           >
             Marcar como Entregue
           </button>
@@ -79,7 +79,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
               type="button"
               onClick={ handleClickPreparing }
               data-testid={ `${client}_order_details__button-preparing-check` }
-              disabled={ status !== 'Pendente' }
+              disabled={ deliveryState !== 'Pendente' }
             >
               Preparar Pedido
             </button>
@@ -87,7 +87,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
               type="button"
               onClick={ handleClickDispatch }
               data-testid={ `${client}_order_details__button-dispatch-check` }
-              disabled={ status !== 'Preparando' }
+              disabled={ deliveryState !== 'Preparando' }
             >
               Saiu para Entrega
             </button>
