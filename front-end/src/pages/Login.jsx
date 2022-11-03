@@ -70,6 +70,9 @@ function Login() {
 
   return (
     <div>
+      <div>
+        <Text/>
+      </div>
       <form>
         <label htmlFor="email">
           Email
