@@ -6,6 +6,12 @@ const FOUR_DIGITS = 4;
 const DELIVERY = 'Em Trânsito';
 
 function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
+  function formatDate(date) {
+    const dateTime = new Date(date);
+    const localDate = dateTime.toLocaleDateString('pt-BR');
+    return localDate;
+  }
+
   const changeStatusOrder = (orderId, newStatus) => {
     changeStatus(orderId, newStatus)
       .then((response) => console.log(response))
@@ -45,7 +51,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
       <p
         data-testid={ `${client}_order_details__element-order-details-label-order-date` }
       >
-        {saleDate}
+        {formatDate(saleDate)}
       </p>
       <p
         data-testid={
