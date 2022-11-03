@@ -25,16 +25,16 @@ function CheckoutAddress() {
   };
 
   const finishedOrder = async () => {
-    const total = JSON.parse(localStorage.getItem('cart'));
+    const carrinho = JSON.parse(localStorage.getItem('cart'));
     const { token } = JSON.parse(localStorage.getItem('user')) || '';
-    const products = total.map((prod) => ({
+    const products = carrinho.map((prod) => ({
       id: prod.itemNumber,
       quantity: prod.quantity,
     }));
     await axios.post(URL, {
       userId: 3,
       sellerId: 2,
-      totalPrice: total
+      totalPrice: carrinho
         .reduce((acc, val) => acc + (val.price * val.quantity), 0)
         .toFixed(2),
       deliveryAddress: address.deliveryAddress,
