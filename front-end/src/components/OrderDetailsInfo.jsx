@@ -79,6 +79,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
               type="button"
               onClick={ handleClickPreparing }
               data-testid={ `${client}_order_details__button-preparing-check` }
+              disabled={ status !== 'Pendente' }
             >
               Preparar Pedido
             </button>
@@ -86,6 +87,7 @@ function OrderDetailsInfo({ id, seller, saleDate, status, client }) {
               type="button"
               onClick={ handleClickDispatch }
               data-testid={ `${client}_order_details__button-dispatch-check` }
+              disabled={ status !== 'Preparando' }
             >
               Saiu para Entrega
             </button>
