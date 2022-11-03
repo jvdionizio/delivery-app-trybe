@@ -1,25 +1,30 @@
+import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useState, useMemo } from 'react';
 import Context from './Context';
 
 function Provider({ children }) {
+  const [checkoutProduct, setCheckoutProduct] = useState([]);
+  const [totalPrice, setTotalPrice] = useState('0,00');
   const [users, setUsers] = useState({
     message: 'certo',
   });
 
-  const [totalPrice, setTotalPrice] = useState('0,00');
+  useEffect(() => {
+    const carrinho = JSON.parse(localStorage.getItem('cart'));
+    setCheckoutProduct(carrinho);
+  }, []);
 
   const value = useMemo(() => ({
     users,
     setUsers,
     totalPrice,
     setTotalPrice,
-  }), [users, totalPrice]);
+    checkoutProduct,
+    setCheckoutProduct,
+  }), [users, totalPrice, checkoutProduct]);
 
   return (
-    <Context.Provider
-      value={ value }
-    >
+    <Context.Provider value={ value }>
       {children}
     </Context.Provider>
   );
