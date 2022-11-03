@@ -5,14 +5,11 @@ const FOUR_DIGITS = 4;
 
 function OrderCardSeller({
   id, saleDate, totalPrice, status, deliveryAddress, deliveryNumber }) {
-  // function formatDate(date) {
-  //   console.log(date);
-  //   const dateTime = new Date(date);
-  //   const day = dateTime.getDate();
-  //   const month = dateTime.getMonth();
-  //   const year = dateTime.getFullYear();
-  //   return [day, month, year].join('/');
-  // }
+  function formatDate(date) {
+    const dateTime = new Date(date);
+    const localDate = dateTime.toLocaleDateString('pt-BR');
+    return localDate;
+  }
 
   const divBorder = {
     border: '1px solid black',
@@ -33,12 +30,12 @@ function OrderCardSeller({
       <p
         data-testid={ `seller_orders__element-delivery-status-${id}` }
       >
-        {status.toUpperCase()}
+        {status}
       </p>
       <p
         data-testid={ `seller_orders__element-order-date-${id}` }
       >
-        {saleDate}
+        {formatDate(saleDate)}
       </p>
       <p
         data-testid={ `seller_orders__element-card-price-${id}` }

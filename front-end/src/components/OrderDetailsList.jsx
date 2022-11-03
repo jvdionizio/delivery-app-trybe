@@ -57,7 +57,7 @@ function OrderDetailsList({ client }) {
         )) : <p>Carregando...</p>
       }
       <p
-        data-testid="customer_order_details__element-order-total-price"
+        data-testid={ `${client}_order_details__element-order-total-price` }
       >
         {`Total: R$ ${String(orders?.totalPrice).replace('.', ',')}`}
       </p>
