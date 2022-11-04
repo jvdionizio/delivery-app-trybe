@@ -1,5 +1,12 @@
+/* eslint-disable react/jsx-max-depth */
+import { Envelope, Lock } from 'phosphor-react';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Button from '../components/styles/Button';
+import Text from '../components/styles/Text';
+import TextInputIcon from '../components/styles/TextInputIcon';
+import TextInputInput from '../components/styles/TextInputInput';
+import TextInputRoot from '../components/styles/TextInputRoot';
 import { postLogin, setToken, verifyToken } from '../services/requests';
 
 function Login() {
@@ -84,56 +91,79 @@ function Login() {
   return (
     <div>
       <div>
-        <Text/>
+        <Text size="lg" asChild>
+          <p>Faça login e começa a usar</p>
+        </Text>
       </div>
       <form>
-        <label htmlFor="email">
-          Email
-          <div>
-            <input
-              name="email"
-              type="email"
-              data-testid="common_login__input-email"
-              value={ login.email }
-              onChange={ handleChange }
-            />
-          </div>
-        </label>
-        <label htmlFor="password">
-          Password
-          <div>
-            <input
+        <Text size="md" textColor="400" asChild>
+          <p>Email</p>
+        </Text>
+        <TextInputRoot>
+          <TextInputIcon>
+            <Envelope />
+          </TextInputIcon>
+          <TextInputInput
+            name="email"
+            type="email"
+            data-testid="common_login__input-email"
+            placeholder="Digite seu email"
+            value={ login.email }
+            onChange={ handleChange }
+          />
+        </TextInputRoot>
+        <div>
+          <Text textColor="400" size="md" asChild>
+            <p>Password</p>
+          </Text>
+          <TextInputRoot>
+            <TextInputIcon>
+              <Lock />
+            </TextInputIcon>
+            <TextInputInput
               name="password"
               type="password"
               data-testid="common_login__input-password"
+              placeholder="*********"
               value={ login.password }
               onChange={ handleChange }
             />
-          </div>
-        </label>
-        <button
-          type="submit"
-          data-testid="common_login__button-login"
-          preventdefault="true"
-          disabled={ login.IsDisable }
-          onClick={ (event) => handleClick(event) }
-        >
-          Login
-        </button>
-        <Link to="/register">
+          </TextInputRoot>
+        </div>
+        <Button>
           <button
             type="submit"
-            data-testid="common_login__button-register"
+            data-testid="common_login__button-login"
+            preventdefault="true"
+            disabled={ login.IsDisable }
+            onClick={ (event) => handleClick(event) }
           >
-            Register
+            Login
           </button>
-        </Link>
+        </Button>
+        <div>
+          <Text
+            textColor="400"
+            size="xs"
+            asChild
+            decoration="underline"
+          >
+            <p>Esqueceu sua senha?</p>
+          </Text>
+          <Link to="/register">
+            <Text textColor="400" size="xs" asChild decoration="underline">
+              <p>Não possui conta? Crie uma agora!</p>
+            </Text>
+          </Link>
+        </div>
       </form>
-      <p
-        data-testid="common_login__element-invalid-email"
-      >
-        {loginFailed.message}
-      </p>
+      <Text textColor="9" size="md" asChild>
+        <p
+          data-testid="common_login__element-invalid-email"
+        >
+          {loginFailed.message}
+        </p>
+      </Text>
     </div>
   );
 }

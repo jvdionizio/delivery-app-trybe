@@ -30,10 +30,16 @@ module.exports = {
       },
 
       blue: '#056DF2',
+
+      yellow: {
+        600: '#F29F05',
+        500: '#F28705',
+        200: '#EAC582',
+      },
     },
     extend: {
       fontFamily: {
-        sans: 'Josefin Sans, sans-serif',
+        sans: 'Inter, sans-serif',
         ubuntu: 'Ubuntu, sans-serif',
       },
     },
