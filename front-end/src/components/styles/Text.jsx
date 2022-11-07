@@ -23,6 +23,8 @@ export default function Text({ size, textColor, children, asChild, decoration })
         },
         {
           'text-decoration-line: underline': decoration === 'underline',
+          'font-bold': decoration === 'bold',
+          'font-semibold': decoration === 'semibold',
         },
       ) }
     >

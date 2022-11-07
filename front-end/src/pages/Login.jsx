@@ -8,6 +8,8 @@ import TextInputIcon from '../components/styles/TextInputIcon';
 import TextInputInput from '../components/styles/TextInputInput';
 import TextInputRoot from '../components/styles/TextInputRoot';
 import { postLogin, setToken, verifyToken } from '../services/requests';
+import favLogo from '../images/fav-logo.svg';
+import Heading from '../components/styles/Heading';
 
 function Login() {
   const [login, setLogin] = useState({
@@ -89,81 +91,100 @@ function Login() {
   };
 
   return (
-    <div>
-      <div>
-        <Text size="lg" asChild>
-          <p>Faça login e começa a usar</p>
-        </Text>
-      </div>
-      <form>
-        <Text size="md" textColor="400" asChild>
-          <p>Email</p>
-        </Text>
-        <TextInputRoot>
-          <TextInputIcon>
-            <Envelope />
-          </TextInputIcon>
-          <TextInputInput
-            name="email"
-            type="email"
-            data-testid="common_login__input-email"
-            placeholder="Digite seu email"
-            value={ login.email }
-            onChange={ handleChange }
-          />
-        </TextInputRoot>
-        <div>
-          <Text textColor="400" size="md" asChild>
-            <p>Password</p>
-          </Text>
-          <TextInputRoot>
-            <TextInputIcon>
-              <Lock />
-            </TextInputIcon>
-            <TextInputInput
-              name="password"
-              type="password"
-              data-testid="common_login__input-password"
-              placeholder="*********"
-              value={ login.password }
-              onChange={ handleChange }
-            />
-          </TextInputRoot>
-        </div>
-        <Button>
-          <button
-            type="submit"
-            data-testid="common_login__button-login"
-            preventdefault="true"
-            disabled={ login.IsDisable }
-            onClick={ (event) => handleClick(event) }
-          >
-            Login
-          </button>
-        </Button>
-        <div>
-          <Text
-            textColor="400"
-            size="xs"
-            asChild
-            decoration="underline"
-          >
-            <p>Esqueceu sua senha?</p>
-          </Text>
-          <Link to="/register">
-            <Text textColor="400" size="xs" asChild decoration="underline">
-              <p>Não possui conta? Crie uma agora!</p>
+    <div
+      className="
+        w-screen
+        h-screen
+        flex
+        flex-row
+        items-center
+        bg-white-smoked
+      "
+    >
+      <div className="flex flex-col w-3/12 gap-8 mx-auto my-auto">
+        <div className="flex flex-col items-center gap-0">
+          <img src={ favLogo } alt="logótipo bora beber" className="w-64" />
+          <div>
+            <Heading asChild>
+              <h1>Bora Beber</h1>
+            </Heading>
+            <Text size="lg" asChild>
+              <p>Faça login e começa a usar</p>
             </Text>
-          </Link>
+          </div>
         </div>
-      </form>
-      <Text textColor="9" size="md" asChild>
-        <p
-          data-testid="common_login__element-invalid-email"
-        >
-          {loginFailed.message}
-        </p>
-      </Text>
+        <form className="flex flex-col gap-8">
+          <div className="flex flex-col gap-3">
+            <Text size="md" textColor="400" asChild decoration="semibold">
+              <p>Endereço de e-mail</p>
+            </Text>
+            <TextInputRoot>
+              <TextInputIcon>
+                <Envelope />
+              </TextInputIcon>
+              <TextInputInput
+                name="email"
+                type="email"
+                data-testid="common_login__input-email"
+                placeholder="Digite seu email"
+                value={ login.email }
+                onChange={ handleChange }
+              />
+            </TextInputRoot>
+            <Text textColor="400" size="md" asChild decoration="semibold">
+              <p>Sua senha</p>
+            </Text>
+            <TextInputRoot>
+              <TextInputIcon>
+                <Lock />
+              </TextInputIcon>
+              <TextInputInput
+                name="password"
+                type="password"
+                data-testid="common_login__input-password"
+                placeholder="*********"
+                value={ login.password }
+                onChange={ handleChange }
+              />
+            </TextInputRoot>
+          </div>
+          <div className="gap-3">
+            <Button>
+              <button
+                type="submit"
+                data-testid="common_login__button-login"
+                preventdefault="true"
+                disabled={ login.IsDisable }
+                onClick={ (event) => handleClick(event) }
+              >
+                Entrar na plataforma
+              </button>
+            </Button>
+            <Text textColor="900" size="md" asChild>
+              <p
+                data-testid="common_login__element-invalid-email"
+              >
+                {loginFailed.message}
+              </p>
+            </Text>
+          </div>
+          <div className="flex flex-col items-center">
+            <Text
+              textColor="400"
+              size="xs"
+              asChild
+              decoration="underline"
+            >
+              <p>Esqueceu sua senha?</p>
+            </Text>
+            <Link to="/register">
+              <Text textColor="400" size="xs" asChild decoration="underline">
+                <p>Não possui conta? Crie uma agora!</p>
+              </Text>
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

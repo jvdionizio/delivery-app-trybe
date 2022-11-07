@@ -32,15 +32,15 @@ module.exports = {
       blue: '#056DF2',
 
       yellow: {
-        600: '#F29F05',
-        500: '#F28705',
+        500: '#F29F05',
+        600: '#F28705',
         200: '#EAC582',
       },
     },
     extend: {
       fontFamily: {
         sans: 'Inter, sans-serif',
-        ubuntu: 'Ubuntu, sans-serif',
+        bowlby: 'Bowlby One SC, sans-serif',
       },
     },
   },
