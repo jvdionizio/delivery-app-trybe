@@ -86,7 +86,8 @@ function Login() {
         break;
       }
     } catch (error) {
-      setLoginFailed({ message: error.message });
+      console.log(error);
+      setLoginFailed({ message: error.response.data.message });
     }
   };
 
@@ -118,7 +119,7 @@ function Login() {
             <Text size="md" textColor="400" asChild decoration="semibold">
               <p>Endereço de e-mail</p>
             </Text>
-            <TextInputRoot>
+            <TextInputRoot error={ loginFailed.message }>
               <TextInputIcon>
                 <Envelope />
               </TextInputIcon>
@@ -134,7 +135,7 @@ function Login() {
             <Text textColor="400" size="md" asChild decoration="semibold">
               <p>Sua senha</p>
             </Text>
-            <TextInputRoot>
+            <TextInputRoot error={ loginFailed.message }>
               <TextInputIcon>
                 <Lock />
               </TextInputIcon>
@@ -148,7 +149,7 @@ function Login() {
               />
             </TextInputRoot>
           </div>
-          <div className="gap-3">
+          <div className="flex flex-col items-center gap-2">
             <Button>
               <button
                 type="submit"
@@ -160,7 +161,7 @@ function Login() {
                 Entrar na plataforma
               </button>
             </Button>
-            <Text textColor="900" size="md" asChild>
+            <Text textColor="red" size="md" asChild decoration="semibold">
               <p
                 data-testid="common_login__element-invalid-email"
               >

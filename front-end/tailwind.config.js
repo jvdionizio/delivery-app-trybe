@@ -16,8 +16,10 @@ module.exports = {
 
       black: '#000',
 
+      red: '#FF5151',
+
       white: {
-        smoked: '#FFF6FF',
+        smoked: '#FFFEF9',
         1000: '#FFF',
       },
 

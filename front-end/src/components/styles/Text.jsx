@@ -14,6 +14,7 @@ export default function Text({ size, textColor, children, asChild, decoration })
           'text-gray-800': textColor === '800',
           'text-gray-900': textColor === '900',
           'text-yellow-600': textColor === 'yellow',
+          'text-red': textColor === 'red',
         },
         {
           'text-xs': size === 'sm',

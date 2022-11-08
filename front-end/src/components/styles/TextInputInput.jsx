@@ -7,6 +7,7 @@ function TextInputInput(props) {
         text-xs
         placeholder:text-gray-400
         outline-none
+        w-full
         "
       { ...props }
     />
