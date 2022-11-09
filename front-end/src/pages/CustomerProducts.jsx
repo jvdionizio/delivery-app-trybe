@@ -1,13 +1,11 @@
 import axios from 'axios';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/Header';
 import ProductCard from '../components/ProductCard';
-import Context from '../context/Context';
 
 function CustomerProducts() {
-  const { totalPrice } = useContext(Context);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
@@ -40,32 +38,35 @@ function CustomerProducts() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-white-smoked w-screen mt-28">
       {loading && <p>Loading...</p>}
       <Header user={ user.name } />
-      {
-        products.map((product, index) => (
-          <ProductCard
-            key={ product.id }
-            name={ product.name }
-            price={ product.price }
-            image={ product.urlImage }
-            id={ product.id }
-            dataTestId={ index + 1 }
-          />
-        ))
-      }
-      <button
-        type="button"
-        data-testid="customer_products__button-cart"
-        onClick={ () => navigate('/customer/checkout') }
-        disabled={ totalPrice === '0,00' }
-      >
-        <span>Ver carrinho: R$ </span>
-        <span data-testid="customer_products__checkout-bottom-value">
-          { totalPrice }
-        </span>
-      </button>
+      <div className="w-full flex flex-col items-center justify-center">
+        <div
+          className="
+            w-11/12
+            flex
+            flex-wrap
+            gap-7
+            items-center
+            justify-center
+            2xl:justify-between
+          "
+        >
+          {
+            products.map((product, index) => (
+              <ProductCard
+                key={ product.id }
+                name={ product.name }
+                price={ product.price }
+                image={ product.urlImage }
+                id={ product.id }
+                dataTestId={ index + 1 }
+              />
+            ))
+          }
+        </div>
+      </div>
     </div>
   );
 }

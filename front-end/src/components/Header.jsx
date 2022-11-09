@@ -1,45 +1,144 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { ShoppingCart, SignOut } from 'phosphor-react';
+import HeaderBtn from './styles/HeaderBtn';
+import Context from '../context/Context';
+import Text from './styles/Text';
+import HeaderIcon from './styles/HeaderIcon';
+import favLogo from '../images/fav-logo.svg';
 
 function Header({ client, user }) {
+  const { totalPrice } = useContext(Context);
   const navigate = useNavigate();
+  const { setSelected, selected } = useContext(Context);
 
   const logout = () => {
     localStorage.setItem('user', '');
     navigate('/login');
   };
 
+  const handleClick = (event) => {
+    const btnName = event.target.id;
+    const productsSelected = {
+      products: true,
+      orders: false,
+    };
+    const ordersSelected = {
+      products: false,
+      orders: true,
+    };
+    console.log(btnName);
+    if (btnName === 'products') {
+      setSelected(productsSelected);
+      navigate('/customer/products');
+    } else {
+      setSelected(ordersSelected);
+      navigate(`/${client}/orders`);
+    }
+  };
+
   return (
-    <header>
-      { client === 'customer' && (
+    <header
+      className="
+        w-full
+        flex
+        flex-row
+        items-center
+        justify-between
+        p-4
+        bg-white-smoked
+        top-0
+        fixed
+      "
+    >
+      <div className="w-full flex items-center gap-6">
+        <img src={ favLogo } alt="logótipo bora beber" className="w-11 mb-3" />
+        <div className="flex items-center gap-3">
+          { client === 'customer' && (
+            <HeaderBtn
+              selected={ selected.products }
+            >
+              <button
+                type="button"
+                data-testid="customer_products__element-navbar-link-products"
+                id="products"
+                onClick={ (event) => {
+                  handleClick(event);
+                } }
+              >
+                Produtos
+              </button>
+            </HeaderBtn>
+          ) }
+          <HeaderBtn
+            selected={ selected.orders }
+          >
+            <button
+              data-testid="customer_products__element-navbar-link-orders"
+              type="button"
+              id="orders"
+              onClick={ (event) => {
+                handleClick(event);
+              } }
+            >
+              Meus Pedidos
+            </button>
+          </HeaderBtn>
+        </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <Text
+          data-testid="customer_products__element-navbar-user-full-name"
+          decoration="semibold"
+          size="lg"
+          asChild
+        >
+          <p className="whitespace-nowrap">
+            { user }
+          </p>
+        </Text>
         <button
           type="button"
-          data-testid="customer_products__element-navbar-link-products"
-          onClick={ () => navigate('/customer/products') }
+          data-testid="customer_products__button-cart"
+          onClick={ () => navigate('/customer/checkout') }
+          disabled={ totalPrice === '0,00' }
+          className="flex items-center gap-1 bg-white-smoked"
         >
-          Produtos
+          <HeaderIcon>
+            <ShoppingCart />
+          </HeaderIcon>
+          <div
+            className={
+              `
+                absolute
+                mt-14
+                right-5
+                bg-white-smoked
+                rounded-full
+                p-1
+                ${totalPrice === '0,00' ? 'hidden' : ''}
+              `
+            }
+          >
+            <Text
+              decoration="semibold"
+              data-testid="customer_products__checkout-bottom-value"
+            >
+              {` R$${totalPrice}`}
+            </Text>
+          </div>
         </button>
-      ) }
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate(`/${client}/orders`) }
-      >
-        Meus pedidos
-      </button>
-      <span
-        data-testid="customer_products__element-navbar-user-full-name"
-      >
-        { user }
-      </span>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => logout() }
-      >
-        Sair
-      </button>
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-logout"
+          onClick={ () => logout() }
+        >
+          <HeaderIcon>
+            <SignOut />
+          </HeaderIcon>
+        </button>
+      </div>
     </header>
   );
 }

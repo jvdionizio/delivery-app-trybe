@@ -9,3 +9,12 @@
 @tailwind utilities;
 
 @tailwind components;
+
+/* stylelint-disable-next-line selector-list-comma-space-after */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-appearance: none;
+  margin: 0;
+}

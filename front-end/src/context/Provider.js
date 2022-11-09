@@ -8,6 +8,10 @@ function Provider({ children }) {
   const [users, setUsers] = useState({
     message: 'certo',
   });
+  const [selected, setSelected] = useState({
+    products: true,
+    orders: false,
+  });
 
   useEffect(() => {
     const carrinho = JSON.parse(localStorage.getItem('cart'));
@@ -15,13 +19,15 @@ function Provider({ children }) {
   }, []);
 
   const value = useMemo(() => ({
+    selected,
+    setSelected,
     users,
     setUsers,
     totalPrice,
     setTotalPrice,
     checkoutProduct,
     setCheckoutProduct,
-  }), [users, totalPrice, checkoutProduct]);
+  }), [users, totalPrice, checkoutProduct, selected]);
 
   return (
     <Context.Provider value={ value }>
