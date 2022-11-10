@@ -2,9 +2,9 @@
 /* eslint-disable react/destructuring-assignment */
 import { clsx } from 'clsx';
 
-function TextInputInput(props) {
+function SelectSelect({ children }, props) {
   return (
-    <input
+    <select
       className={ clsx(
         {
           'bg-transparent': props.type !== 'number',
@@ -21,10 +21,12 @@ function TextInputInput(props) {
         },
       ) }
       { ...props }
-    />
+    >
+      { children }
+    </select>
   );
 }
 
-TextInputInput.displayName = 'TextInput.Input';
+SelectSelect.displayName = 'Select.Select';
 
-export default TextInputInput;
+export default SelectSelect;

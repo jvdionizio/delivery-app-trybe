@@ -1,4 +1,10 @@
+/* eslint-disable max-len */
+/* eslint-disable react/jsx-max-depth */
 import React, { useEffect, useState } from 'react';
+import Button from './styles/Button';
+import TableTD from './styles/TableTD';
+import TableTH from './styles/TableTH';
+import Text from './styles/Text';
 // import Context from '../context/Context';
 
 function CheckoutProducts() {
@@ -25,71 +31,111 @@ function CheckoutProducts() {
   };
 
   return (
-    <div>
+    <div
+      className="
+        w-full
+        border
+        border-gray-100
+        shadow-md
+        px-3
+        py-2
+        bg-white-1000
+        flex
+        flex-col
+        gap-4
+      "
+    >
       <table id="feedback">
         <tbody>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
+          <tr className="w-full">
+            <TableTH>
+              <th>Item</th>
+            </TableTH>
+            <TableTH>
+              <th>Descrição</th>
+            </TableTH>
+            <TableTH>
+              <th>Quantidade</th>
+            </TableTH>
+            <TableTH>
+              <th>Valor Unitário</th>
+            </TableTH>
+            <TableTH>
+              <th>Sub-total</th>
+            </TableTH>
+            <TableTH>
+              <th>Remover Item</th>
+            </TableTH>
           </tr>
           {checkoutProduct && checkoutProduct.map((product, index) => (
             <tr key={ product.itemNumber }>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-item-number-${index}`
-                }
-              >
-                { index + 1 }
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-name-${index}`
-                }
-              >
-                {product.name}
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-quantity-${index}`
-                }
-              >
-                {product.quantity}
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
-                }
-              >
-                { Number(product.price).toFixed(2).replace('.', ',') }
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
-                }
-              >
-                { Number(product.quantity * product.price).toFixed(2).replace('.', ',') }
-              </td>
-              <td>
-                <button
+              <TableTD>
+                <td
                   data-testid={
-                    `customer_checkout__element-order-table-remove-${index}`
+                    `customer_checkout__element-order-table-item-number-${index}`
                   }
-                  type="button"
-                  onClick={ () => removeItem(product) }
                 >
-                  Remover
-                </button>
-              </td>
+                  { index + 1 }
+                </td>
+              </TableTD>
+              <TableTD productName>
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-name-${index}`
+                  }
+                >
+                  {product.name}
+                </td>
+              </TableTD>
+              <TableTD>
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-quantity-${index}`
+                  }
+                >
+                  {product.quantity}
+                </td>
+              </TableTD>
+              <TableTD>
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-unit-price-${index}`
+                  }
+                >
+                  { Number(product.price).toFixed(2).replace('.', ',') }
+                </td>
+              </TableTD>
+              <TableTD>
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-sub-total-${index}`
+                  }
+                >
+                  { Number(product.quantity * product.price).toFixed(2).replace('.', ',') }
+                </td>
+              </TableTD>
+              <TableTD>
+                <td>
+                  <Button remove>
+                    <button
+                      data-testid={
+                        `customer_checkout__element-order-table-remove-${index}`
+                      }
+                      type="button"
+                      onClick={ () => removeItem(product) }
+                    >
+                      REMOVER
+                    </button>
+                  </Button>
+                </td>
+              </TableTD>
             </tr>
           ))}
         </tbody>
       </table>
-      <div>
-        <span
+      <div className="self-end">
+        <Text
+          decoration="bold"
           data-testid="customer_checkout__element-order-total-price"
         >
           Total:
@@ -99,7 +145,7 @@ function CheckoutProducts() {
               .reduce((acc, val) => acc + (val.price * val.quantity), 0)
               .toFixed(2).replace('.', ',')
           }
-        </span>
+        </Text>
       </div>
     </div>
   );

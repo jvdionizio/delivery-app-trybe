@@ -38,7 +38,7 @@ function CustomerProducts() {
   }, []);
 
   return (
-    <div className="bg-white-smoked w-screen mt-28">
+    <div className="bg-white-smoked w-screen mt-28 mb-5">
       {loading && <p>Loading...</p>}
       <Header user={ user.name } />
       <div className="w-full flex flex-col items-center justify-center">

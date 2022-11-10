@@ -145,7 +145,6 @@ function ProductCard({ price, image, name, id, dataTestId }) {
           </button>
           <TextInputInput
             type="number"
-            inputType="number"
             value={ quantity }
             data-testid={ `customer_products__input-card-quantity-${id}` }
             onChange={ handleQuantity }

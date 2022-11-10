@@ -23,7 +23,7 @@ function OrdersDetails() {
   return (
     <div>
       { user ? (
-        <div>
+        <div className="bg-white-smoked h-screen w-screen mt-28 mb-5">
           <Header client={ user.role } user={ user.name } />
           <OrderDetailsList client={ user.role } userId={ user.id } />
         </div>

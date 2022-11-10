@@ -2,7 +2,14 @@ import PropTypes from 'prop-types';
 import { Slot } from '@radix-ui/react-slot';
 import { clsx } from 'clsx';
 
-export default function Text({ size, textColor, children, asChild, decoration }) {
+export default function Text({
+  size,
+  uppercase,
+  textColor,
+  children,
+  asChild,
+  decoration,
+}) {
   const Comp = asChild ? Slot : 'span';
 
   return (
@@ -27,6 +34,9 @@ export default function Text({ size, textColor, children, asChild, decoration })
           'font-bold': decoration === 'bold',
           'font-semibold': decoration === 'semibold',
         },
+        {
+          uppercase,
+        },
       ) }
     >
       {children}
@@ -39,6 +49,7 @@ Text.defaultProps = {
   asChild: false,
   textColor: '900',
   decoration: 'none',
+  uppercase: false,
 };
 
 Text.propTypes = {
@@ -47,4 +58,5 @@ Text.propTypes = {
   asChild: PropTypes.bool,
   textColor: PropTypes.string,
   decoration: PropTypes.string,
+  uppercase: PropTypes.bool,
 };

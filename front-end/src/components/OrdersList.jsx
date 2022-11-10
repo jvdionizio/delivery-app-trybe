@@ -17,13 +17,22 @@ function OrdersList({ client, userId }) {
   }, [client, userId]);
 
   return (
-    <div>
+    <div className="w-full h-full flex flex-col items-center">
       {
         orders ? orders.map((order) => (
           <Link
             key={ order.id }
             to={ `/${client}/orders/${order.id}` }
             params={ order.id }
+            className="
+              2xl:w-1/2
+              xl:w-1/2
+              lg:w-1/2
+              md:w-5/6
+              flex
+              flex-col
+              items-center
+            "
           >
             { client === 'customer' ? (
               <OrderCard

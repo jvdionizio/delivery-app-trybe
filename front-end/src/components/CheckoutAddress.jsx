@@ -1,6 +1,13 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Text from './styles/Text';
+import SelectRoot from './styles/SelectRoot';
+import SelectSelect from './styles/SelectSelect';
+import TextInputRoot from './styles/TextInputRoot';
+import TextInputInput from './styles/TextInputInput';
+import Button from './styles/Button';
 // import Context from '../context/Context';
 
 const URL = 'http://localhost:3001/customer/checkout/';
@@ -54,55 +61,81 @@ function CheckoutAddress() {
   };
 
   return (
-    <div>
-      <div>
-        <p>Detalhes e Endereço para Entrega</p>
-      </div>
-      <div>
-        <label htmlFor="salesPerson">
-          P. Vendedora Responsável
-          <select
-            data-testid="customer_checkout__select-seller"
-            id="salesPerson"
-          >
-            <option
-              value="Fulana"
+    <div
+      className="
+        w-full
+        border
+        border-gray-100
+        shadow-md
+        px-3
+        py-3
+        bg-white-1000
+        flex
+        flex-col
+        gap-6
+      "
+    >
+      <div className="flex w-full items-center justify-around">
+        <div className="w-2/6">
+          <Text>
+            <p>Pessoa Vendedora Responsável</p>
+          </Text>
+          <SelectRoot>
+            <SelectSelect
+              data-testid="customer_checkout__select-seller"
+              id="salesPerson"
             >
-              Fulana Pereira
-            </option>
-          </select>
-        </label>
-        <label htmlFor="deliveryAddress">
-          Endereço
-          <input
-            data-testid="customer_checkout__input-address"
-            id="deliveryAddress"
-            type="text"
-            name="deliveryAddress"
-            value={ address.deliveryAddress }
-            onChange={ handleChange }
-          />
-        </label>
-        <label htmlFor="deliveryNumber">
-          Número
-          <input
-            data-testid="customer_checkout__input-address-number"
-            id="deliveryNumber"
-            type="text"
-            name="deliveryNumber"
-            value={ address.deliveryNumber }
-            onChange={ handleChange }
-          />
-        </label>
+              <option
+                value="Fulana"
+              >
+                Fulana Pereira
+              </option>
+            </SelectSelect>
+          </SelectRoot>
+        </div>
+        <div className="w-2/6">
+          <Text asChild>
+            <p>Endereço</p>
+          </Text>
+          <TextInputRoot>
+            <TextInputInput
+              data-testid="customer_checkout__input-address"
+              id="deliveryAddress"
+              type="text"
+              name="deliveryAddress"
+              placeholder="Rua / Av."
+              value={ address.deliveryAddress }
+              onChange={ handleChange }
+            />
+          </TextInputRoot>
+        </div>
+        <div className="w-1/6">
+          <Text asChild>
+            <p>Número</p>
+          </Text>
+          <TextInputRoot>
+            <TextInputInput
+              data-testid="customer_checkout__input-address-number"
+              id="deliveryNumber"
+              type="text"
+              name="deliveryNumber"
+              placeholder="0000"
+              value={ address.deliveryNumber }
+              onChange={ handleChange }
+            />
+          </TextInputRoot>
+        </div>
       </div>
       <div>
-        <button
-          data-testid="customer_checkout__button-submit-order"
-          type="button"
-          onClick={ finishedOrder }
-        >
-          Finalizar Pedido
-        </button>
+        <Button>
+          <button
+            data-testid="customer_checkout__button-submit-order"
+            type="button"
+            onClick={ finishedOrder }
+          >
+            Finalizar Pedido
+          </button>
+        </Button>
       </div>
     </div>
   );
