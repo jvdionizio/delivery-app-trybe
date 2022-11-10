@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { requestApi } from '../services/requests';
-import OrderProductCard from './OrdersProductCard';
+import OrderProducts from './OrdersProducts';
 import OrderDetailsInfo from './OrderDetailsInfo';
 
 function OrderDetailsList({ client }) {
@@ -34,7 +34,7 @@ function OrderDetailsList({ client }) {
   }, [orders]);
 
   return (
-    <div>
+    <div className="w-11/12">
       {
         orders && (
           <OrderDetailsInfo
@@ -47,20 +47,10 @@ function OrderDetailsList({ client }) {
         )
       }
       {
-        products ? products.map((product, index) => (
-          <OrderProductCard
-            key={ product.id }
-            index={ index + 1 }
-            product={ product }
-            client={ client }
-          />
-        )) : <p>Carregando...</p>
+        products ? (
+          <OrderProducts products={ products } />
+        ) : <p>Carregando...</p>
       }
-      <p
-        data-testid={ `${client}_order_details__element-order-total-price` }
-      >
-        {`Total: R$ ${String(orders?.totalPrice).replace('.', ',')}`}
-      </p>
     </div>
   );
 }

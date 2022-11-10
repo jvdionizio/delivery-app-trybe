@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import CardOrder from './styles/CardOrder';
+import Text from './styles/Text';
 
 const FOUR_DIGITS = 4;
 
@@ -11,42 +13,61 @@ function OrderCardSeller({
     return localDate;
   }
 
-  const divBorder = {
-    border: '1px solid black',
-    borderRadius: '5px',
-    padding: '10px',
-    margin: '10px',
-  };
-
   return (
     <div
-      style={ divBorder }
+      className="
+        w-full
+        border
+        border-gray-100
+        shadow-md
+        px-3
+        py-2
+        bg-white-1000
+        flex
+        flex-col
+      "
     >
-      <p
-        data-testid={ `seller_orders__element-order-id-${id}` }
-      >
-        {`Pedido ${String(id).padStart(FOUR_DIGITS, '0')}`}
-      </p>
-      <p
-        data-testid={ `seller_orders__element-delivery-status-${id}` }
-      >
-        {status}
-      </p>
-      <p
-        data-testid={ `seller_orders__element-order-date-${id}` }
-      >
-        {formatDate(saleDate)}
-      </p>
-      <p
-        data-testid={ `seller_orders__element-card-price-${id}` }
-      >
-        {`R$ ${String(totalPrice).replace('.', ',')}`}
-      </p>
-      <p
-        data-testid={ `seller_orders__element-card-address-${id}` }
-      >
-        {`Endereço: ${deliveryAddress}, ${deliveryNumber}`}
-      </p>
+      <div className="flex">
+        <CardOrder>
+          <Text>
+            <p
+              data-testid={ `seller_orders__element-order-id-${id}` }
+            >
+              {`Pedido ${String(id).padStart(FOUR_DIGITS, '0')}`}
+            </p>
+          </Text>
+        </CardOrder>
+        <CardOrder status={ status }>
+          <Text>
+            <p
+              data-testid={ `seller_orders__element-delivery-status-${id}` }
+            >
+              {status}
+            </p>
+          </Text>
+        </CardOrder>
+        <CardOrder>
+          <p
+            data-testid={ `seller_orders__element-order-date-${id}` }
+          >
+            {formatDate(saleDate)}
+          </p>
+          <p
+            data-testid={ `seller_orders__element-card-price-${id}` }
+          >
+            {`R$ ${String(totalPrice).replace('.', ',')}`}
+          </p>
+        </CardOrder>
+      </div>
+      <div className="self-end">
+        <Text asChild>
+          <p
+            data-testid={ `seller_orders__element-card-address-${id}` }
+          >
+            {`Endereço: ${deliveryAddress}, ${deliveryNumber}`}
+          </p>
+        </Text>
+      </div>
     </div>
   );
 }

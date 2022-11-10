@@ -24,7 +24,6 @@ function CheckoutAddress() {
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
-    console.log(value);
     setAddress((prevState) => ({
       ...prevState,
       [name]: value,
@@ -76,7 +75,7 @@ function CheckoutAddress() {
       "
     >
       <div className="flex w-full items-center justify-around">
-        <div className="w-2/6">
+        <div className="w-2/6 flex flex-col justify-between">
           <Text>
             <p>Pessoa Vendedora Responsável</p>
           </Text>
@@ -93,7 +92,7 @@ function CheckoutAddress() {
             </SelectSelect>
           </SelectRoot>
         </div>
-        <div className="w-2/6">
+        <div className="w-2/6 flex flex-col justify-between">
           <Text asChild>
             <p>Endereço</p>
           </Text>
@@ -109,7 +108,7 @@ function CheckoutAddress() {
             />
           </TextInputRoot>
         </div>
-        <div className="w-1/6">
+        <div className="w-1/6 flex flex-col justify-between">
           <Text asChild>
             <p>Número</p>
           </Text>

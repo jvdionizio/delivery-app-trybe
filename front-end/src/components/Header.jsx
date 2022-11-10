@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ShoppingCart, SignOut } from 'phosphor-react';
 import HeaderBtn from './styles/HeaderBtn';
 import Context from '../context/Context';
@@ -12,14 +12,16 @@ function Header({ client, user }) {
   const { totalPrice } = useContext(Context);
   const navigate = useNavigate();
   const { setSelected, selected } = useContext(Context);
+  const { pathname } = useLocation();
 
   const logout = () => {
     localStorage.setItem('user', '');
     navigate('/login');
   };
 
-  const handleClick = (event) => {
-    const btnName = event.target.id;
+  const checkPath = () => {
+    const pathName = pathname.split('/')[2];
+    console.log(pathName);
     const productsSelected = {
       products: true,
       orders: false,
@@ -28,15 +30,17 @@ function Header({ client, user }) {
       products: false,
       orders: true,
     };
-    console.log(btnName);
-    if (btnName === 'products') {
+    console.log(pathName);
+    if (pathName === 'products') {
       setSelected(productsSelected);
-      navigate('/customer/products');
     } else {
       setSelected(ordersSelected);
-      navigate(`/${client}/orders`);
     }
   };
+
+  useEffect(() => {
+    checkPath();
+  }, []);
 
   return (
     <header
@@ -63,9 +67,7 @@ function Header({ client, user }) {
                 type="button"
                 data-testid="customer_products__element-navbar-link-products"
                 id="products"
-                onClick={ (event) => {
-                  handleClick(event);
-                } }
+                onClick={ () => navigate('/customer/products') }
               >
                 Produtos
               </button>
@@ -78,9 +80,7 @@ function Header({ client, user }) {
               data-testid="customer_products__element-navbar-link-orders"
               type="button"
               id="orders"
-              onClick={ (event) => {
-                handleClick(event);
-              } }
+              onClick={ () => navigate(`/${client}/orders`) }
             >
               Meus Pedidos
             </button>
