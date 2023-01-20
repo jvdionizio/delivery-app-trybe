@@ -6,7 +6,6 @@ import { Slot } from '@radix-ui/react-slot';
 function HeaderBtn({ children, selected }, props) {
   return (
     <Slot
-      type="button"
       className={ clsx(
         'py-4',
         'px-3',
