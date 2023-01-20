@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://delivery-app-trybe-production.up.railway.app/}',
+  baseURL: 'https://delivery-app-trybe-production.up.railway.app',
 });
 
 export const setToken = (token) => {
